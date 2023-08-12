@@ -39,3 +39,9 @@ class Payout(models.Model):
     def __str__(self):
         return "(" + self.reimbursement.name + ") " + self.ship.name + ": " + format(self.value, ",") + " ISK"
 
+class Setting(models.Model):
+    name = models.CharField(max_length=255, blank=False, unique=True)
+    value = models.CharField(max_length=255, blank=False)
+
+    def __str__(self):
+        return self.name

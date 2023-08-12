@@ -8,3 +8,4 @@ from .models import *
 admin.site.register(Ship)
 admin.site.register(Reimbursement)
 admin.site.register(Payout)
+admin.site.register(Setting)
