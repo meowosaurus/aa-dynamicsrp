@@ -20,7 +20,7 @@ class dynamicsrpMenuItem(MenuItemHook):
             self,
             _("SRP Payouts"),
             "fas fa-money-bill-wave fa-fw",
-            "dynamicsrp:index",
+            "dynamicsrp:payouts",
             navactive=["dynamicsrp:"],
         )
 

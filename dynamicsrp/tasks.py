@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 # dynamicsrp Task
-@shared_task
-def dynamicsrp_task():
-    """dynamicsrp Task"""
-
-    pass
+#@shared_task
+#def dynamicsrp_task():
+#    """dynamicsrp Task"""
+#
+#    pass

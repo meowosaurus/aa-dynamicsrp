@@ -9,5 +9,5 @@ from dynamicsrp import views
 app_name: str = "dynamicsrp"
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", views.payouts, name="payouts"),
 ]

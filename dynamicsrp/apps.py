@@ -12,4 +12,4 @@ class dynamicsrpConfig(AppConfig):
 
     name = "dynamicsrp"
     label = "dynamicsrp"
-    verbose_name = f"dynamicsrp App v{__version__}"
+    verbose_name = f"dynamicsrp v{__version__}"

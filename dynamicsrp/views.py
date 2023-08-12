@@ -11,10 +11,19 @@ from django.db.models.functions import Coalesce
 
 from .models import *
 
+def test():
+    all_settings = Setting.objects.all()
+
+    test_matrix = []
+    #for setting in all_settings:
+        
+
+
+
 
 @login_required
 @permission_required("dynamicsrp.basic_access")
-def index(request: WSGIRequest) -> HttpResponse:
+def payouts(request: WSGIRequest) -> HttpResponse:
     """
     Index view
     :param request:
@@ -37,6 +46,8 @@ def index(request: WSGIRequest) -> HttpResponse:
                 cell = Payout.objects.filter(ship=row, reimbursement=column).first()
                 row_data.append(cell)
             matrix.append(row_data)
+
+    test()
 
     context = {'header_rows': ship_rows, 
                 'matrix': matrix,

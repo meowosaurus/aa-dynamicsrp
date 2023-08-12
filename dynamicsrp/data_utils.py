@@ -1,10 +1,57 @@
 from django.db import models
 
-from .models import Ship, Setting
+from .models import Ship, Setting, Reimbursement, Payout
+
+def add_example_reimbursements():
+    if not Reimbursement.objects.filter(name="CTA", index=0).exists():
+        Reimbursement.objects.create(name="CTA", index=0)
+    if not Reimbursement.objects.filter(name="Strategic", index=1).exists():
+        Reimbursement.objects.create(name="Strategic", index=1)
+    if not Reimbursement.objects.filter(name="Fun Fleet", index=2).exists():
+        Reimbursement.objects.create(name="Fun Fleet", index=2)
+
+def add_example_payouts():
+    cta_reimbursement = Reimbursement.objects.get(name="CTA", index=0)
+    strat_reimbursement = Reimbursement.objects.get(name="Strategic", index=1)
+    fun_reimbursement = Reimbursement.objects.get(name="Fun Fleet", index=2)
+    ferox = Ship.objects.get(name="Ferox")
+    osprey = Ship.objects.get(name="Osprey")
+    sabre = Ship.objects.get(name="Sabre")
+    claymore = Ship.objects.get(name="Claymore")
+
+    if not Payout.objects.filter(reimbursement=cta_reimbursement, ship=ferox, value=100000000).exists():
+        Payout.objects.create(reimbursement=cta_reimbursement, ship=ferox, value=100000000)
+    if not Payout.objects.filter(reimbursement=strat_reimbursement, ship=ferox, value=70000000).exists():
+        Payout.objects.create(reimbursement=strat_reimbursement, ship=ferox, value=70000000)
+    if not Payout.objects.filter(reimbursement=fun_reimbursement, ship=ferox, value=30000000).exists():
+        Payout.objects.create(reimbursement=fun_reimbursement, ship=ferox, value=30000000)
+    
+    if not Payout.objects.filter(reimbursement=cta_reimbursement, ship=osprey, value=3000000).exists():
+        Payout.objects.create(reimbursement=cta_reimbursement, ship=osprey, value=30000000)
+    if not Payout.objects.filter(reimbursement=strat_reimbursement, ship=osprey, value=3000000).exists():
+        Payout.objects.create(reimbursement=strat_reimbursement, ship=osprey, value=30000000)
+    if not Payout.objects.filter(reimbursement=fun_reimbursement, ship=osprey, value=1500000).exists():
+        Payout.objects.create(reimbursement=fun_reimbursement, ship=osprey, value=15000000)
+
+    if not Payout.objects.filter(reimbursement=cta_reimbursement, ship=sabre, value=10000000).exists():
+        Payout.objects.create(reimbursement=cta_reimbursement, ship=sabre, value=100000000)
+    if not Payout.objects.filter(reimbursement=strat_reimbursement, ship=sabre, value=7000000).exists():
+        Payout.objects.create(reimbursement=strat_reimbursement, ship=sabre, value=70000000)
+    if not Payout.objects.filter(reimbursement=fun_reimbursement, ship=sabre, value=50000000).exists():
+        Payout.objects.create(reimbursement=fun_reimbursement, ship=sabre, value=50000000)
+    
+    if not Payout.objects.filter(reimbursement=cta_reimbursement, ship=claymore, value=50000000).exists():
+        Payout.objects.create(reimbursement=cta_reimbursement, ship=claymore, value=500000000)
+    if not Payout.objects.filter(reimbursement=strat_reimbursement, ship=claymore, value=30000000).exists():
+        Payout.objects.create(reimbursement=strat_reimbursement, ship=claymore, value=300000000)
+    if not Payout.objects.filter(reimbursement=fun_reimbursement, ship=claymore, value=0).exists():
+        Payout.objects.create(reimbursement=fun_reimbursement, ship=claymore, value=0)
 
 def add_settings():
     if not Setting.objects.filter(name="display_all_ships").exists():
         Setting.objects.create(name="display_all_ships", value="True")
+    if not Setting.objects.filter(name="disable_ship_icons").exists():
+        Setting.objects.create(name="disable_ship_icons", value="True")
 
 def add_ships():
     if not Ship.objects.filter(name='Absolution', ship_id=22448).exists():
