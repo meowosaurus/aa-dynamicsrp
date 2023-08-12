@@ -1,0 +1,114 @@
+# Apply to all files without committing:
+#   pre-commit run --all-files
+# Update this file:
+#   pre-commit autoupdate
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      # Identify invalid files
+      - id: check-ast
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-xml
+
+      # git checks
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [ --maxkb=1000 ]
+      - id: detect-private-key
+      - id: check-case-conflict
+
+      # Python checks
+      - id: check-docstring-first
+      - id: debug-statements
+      - id: requirements-txt-fixer
+      - id: fix-encoding-pragma
+        args: [ --remove ]
+      - id: fix-byte-order-marker
+
+      # General quality checks
+      - id: mixed-line-ending
+        args: [ --fix=lf ]
+      - id: trailing-whitespace
+        args: [ --markdown-linebreak-ext=md ]
+        exclude: |
+          (?x)(
+            .min\.css|
+            .min\.js|
+            .po|
+            .mo
+          )
+      - id: check-executables-have-shebangs
+      - id: end-of-file-fixer
+        exclude: |
+          (?x)(
+            .min\.css|
+            .min\.js|
+            .po|
+            .mo
+          )
+
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 2.7.2
+    hooks:
+      - id: editorconfig-checker
+        exclude: |
+          (?x)(
+            LICENSE
+          )
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-check-mock-methods
+      - id: python-no-log-warn
+      - id: python-use-type-annotations
+      - id: text-unicode-replacement-char
+
+  - repo: https://github.com/adamchainz/django-upgrade
+    rev: 1.14.0
+    hooks:
+      - id: django-upgrade
+        args: [ --target-version=4.0 ]
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.9.0
+    hooks:
+      - id: pyupgrade
+        args: [ --py38-plus ]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/asottile/yesqa
+    rev: v1.5.0
+    hooks:
+      - id: yesqa
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+      - id: black
+        args: [ --target-version=py38 ]
+
+  - repo: https://github.com/asottile/blacken-docs
+    rev: 1.15.0
+    hooks:
+      - id: blacken-docs
+        additional_dependencies: [ black==23.7.0 ]
+        args: [ --target-version=py38 ]
+
+  - repo: https://github.com/asottile/setup-cfg-fmt
+    rev: v2.4.0
+    hooks:
+      - id: setup-cfg-fmt
