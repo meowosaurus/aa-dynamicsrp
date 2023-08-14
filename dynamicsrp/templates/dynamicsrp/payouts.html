@@ -3,6 +3,13 @@
 {% load humanize %}
 
 {% block details %}
+
+    {% if disable_info_text.value == "False" %}
+    <div class="alert alert-info" role="alert">
+        {{ info_text.value }}
+    </div>
+    {% endif %}
+
     <div class="panel panel-primary">
         <div class="panel-heading">
             <div class="panel-title">View Payouts</div>
@@ -22,7 +29,7 @@
                 {% for row_data in matrix %}
                 <tr>
                     <td>
-                      {% if row_data.0.ship_id is not 0 %}
+                      {% if row_data.0.ship_id is not 0 and disable_ship_icons.value == "False" %}
                       <img src="https://image.eveonline.com/types/{{ row_data.0.ship_id }}/icon?size=32">
                       {% endif %}
                       <b>{{ row_data.0.name }}</b>

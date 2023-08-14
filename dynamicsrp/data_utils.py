@@ -51,7 +51,11 @@ def add_settings():
     if not Setting.objects.filter(name="display_all_ships").exists():
         Setting.objects.create(name="display_all_ships", value="True")
     if not Setting.objects.filter(name="disable_ship_icons").exists():
-        Setting.objects.create(name="disable_ship_icons", value="True")
+        Setting.objects.create(name="disable_ship_icons", value="False")
+    if not Setting.objects.filter(name="disable_info_text").exists():
+        Setting.objects.create(name="disable_info_text", value="False")
+    if not Setting.objects.filter(name="info_text").exists():
+        Setting.objects.create(name="info_text", value="If you're using a bad fit, we'll reduce the payout.")
 
 def add_ships():
     if not Ship.objects.filter(name='Absolution', ship_id=22448).exists():

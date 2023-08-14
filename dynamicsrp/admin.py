@@ -1,7 +1,7 @@
 """Admin models"""
 
 # Django
-from django.contrib import admin 
+from django.contrib import admin
 
 from .models import *
 
@@ -17,7 +17,6 @@ class ShipAdmin(admin.ModelAdmin):
 class SettingAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
-# Register your models here.
 admin.site.register(Ship, ShipAdmin)
 admin.site.register(Reimbursement, ReimbursementAdmin)
 admin.site.register(Payout, PayoutAdmin)
