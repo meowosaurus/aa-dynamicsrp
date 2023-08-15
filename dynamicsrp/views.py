@@ -15,10 +15,17 @@ from .models import *
 def gen_context():
     all_settings = Setting.objects.all()
 
+    # Recalculate data if not available in memory
+    if not cache.get('matrix'):
+        recalculate_matrix()
+    if not cache.get('settings'):
+        load_settings()
+
     context = {"display_all_ships": Setting.objects.get(name="display_all_ships"),
                "disable_ship_icons": Setting.objects.get(name="disable_ship_icons"),
                "disable_info_text": Setting.objects.get(name="disable_info_text"),
-               "info_text": Setting.objects.get(name="info_text")}
+               "info_text": Setting.objects.get(name="info_text"),
+               "settings": cache.get("settings")}
 
     return context
 
@@ -31,14 +38,11 @@ def payouts(request: WSGIRequest) -> HttpResponse:
     :return:
     """
 
+    context = gen_context()
+
     ship_rows = Ship.objects.all().order_by("name")
     columns = Reimbursement.objects.all().order_by("index")
     column_width = 100 / (columns.count() + 1)
-
-    context = gen_context()
-
-    if not cache.get('matrix'):
-        recalculate_matrix()
 
     matrix = cache.get('matrix')
 

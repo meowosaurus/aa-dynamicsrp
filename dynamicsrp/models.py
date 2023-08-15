@@ -55,8 +55,10 @@ def recalculate_matrix():
 
     setting_display_all_ships = Setting.objects.get(name="display_all_ships")
 
+    settings = cache.get('settings')
+
     for row in ship_rows:
-        if Payout.objects.filter(ship=row).count() > 0 or setting_display_all_ships.value == "True":
+        if Payout.objects.filter(ship=row).count() > 0 or settings['display_all_ships'] == "True":
             row_data = [row]
             for column in columns:
                 cell = Payout.objects.filter(ship=row, reimbursement=column).first()
@@ -64,6 +66,21 @@ def recalculate_matrix():
             matrix.append(row_data)
 
     cache.set('matrix', matrix)
+
+def load_settings():
+    settings = Setting.objects.all()
+    settings_dict = dict()
+
+    for entry in settings:
+        settings_dict[entry.name] = entry.value
+
+    cache.set('settings', settings_dict)
+
+    test = cache.get('settings')
+
+    #print(test)
+
+    #print(test["info_text"])
 
 ## Payout Receiver
 
@@ -79,10 +96,12 @@ def payout_post_delete(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Setting)
 def setting_post_save(sender, instance, **kwargs):
+    load_settings()
     recalculate_matrix()
 
 @receiver(post_delete, sender=Setting)
 def setting_post_delete(sender, instance, **kwargs):
+    load_settings()
     recalculate_matrix()
 
 ## Reimbursement Receiver
