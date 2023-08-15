@@ -4,9 +4,9 @@
 
 {% block details %}
 
-    {% if disable_info_text.value == "False" %}
+    {% if settings.disable_info_text == "False" %}
     <div class="alert alert-info" role="alert">
-        {{ info_text.value }}
+        {{ settings.info_text }}
     </div>
     {% endif %}
 
@@ -29,7 +29,7 @@
                 {% for row_data in matrix %}
                 <tr>
                     <td>
-                      {% if row_data.0.ship_id is not 0 and disable_ship_icons.value == "False" %}
+                      {% if row_data.0.ship_id is not 0 and settings.disable_ship_icons == "False" %}
                       <img src="https://image.eveonline.com/types/{{ row_data.0.ship_id }}/icon?size=32">
                       {% endif %}
                       <b>{{ row_data.0.name }}</b>

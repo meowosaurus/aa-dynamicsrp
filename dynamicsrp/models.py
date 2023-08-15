@@ -56,9 +56,12 @@ def recalculate_matrix():
     setting_display_all_ships = Setting.objects.get(name="display_all_ships")
 
     settings = cache.get('settings')
+    display_ships = False
+    if settings:
+        display_ships = settings['display_all_ships']
 
     for row in ship_rows:
-        if Payout.objects.filter(ship=row).count() > 0 or settings['display_all_ships'] == "True":
+        if Payout.objects.filter(ship=row).count() > 0 or display_ships == "True":
             row_data = [row]
             for column in columns:
                 cell = Payout.objects.filter(ship=row, reimbursement=column).first()
@@ -75,12 +78,6 @@ def load_settings():
         settings_dict[entry.name] = entry.value
 
     cache.set('settings', settings_dict)
-
-    test = cache.get('settings')
-
-    #print(test)
-
-    #print(test["info_text"])
 
 ## Payout Receiver
 
