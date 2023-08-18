@@ -1,5 +1,6 @@
 {% extends 'allianceauth/base.html' %}
 {% load i18n %}
+{% load navactive %}
 
 {% block page_title %}{% translate "SRP Payouts" %}{% endblock %}
 
@@ -7,7 +8,73 @@
     <div class="allianceauth-dynamicsrp-plugin">
         <br />
 
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'dynamicsrp:payouts' %}">SRP</a>
+              </div>
+          
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li class="{% navactive request 'dynamicsrp:payouts' %}"><a href="{% url 'dynamicsrp:payouts' %}">Payouts</a></li>
+                  <li class="{% navactive request 'dynamicsrp:requested' %}"><a href="{% url 'dynamicsrp:requested' %}">Requested</a></li>
+                  <li data-toggle="modal" data-target="#myModal">
+                    <a href="#">
+                      Submit Request
+                    </a>
+                  </li>
+                </ul>
 
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="{% navactive request 'dynamicsrp:reports' %}"><a href="{% url 'dynamicsrp:reports' %}">Reports</a></li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li class="{% navactive request 'dynamicsrp:open_requests' %}"><a href="{% url 'dynamicsrp:open_requests' %}">Open Requests</a></li>
+                      <li class="{% navactive request 'dynamicsrp:closed_requests' %}"><a href="{% url 'dynamicsrp:closed_requests' %}">All Requests</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Request Ship Replacement</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Lossmail link:</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="https://zkillboard.com/kill/.../">
+          </div>
+          <div class="form-group">
+            <label>Ping:</label>
+            <textarea class="form-control" rows="5" placeholder="Example: @everyone fill up this fleet asap! Max <shiptype> on <fc>"></textarea>
+          </div>
+        </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
 
         {% block details %}{% endblock %}
     </div>

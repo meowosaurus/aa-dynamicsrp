@@ -1,0 +1,68 @@
+{% extends 'dynamicsrp/base.html' %}
+{% load i18n %}
+{% load humanize %}
+
+{% block details %}
+
+    {% if settings.disable_info_text == "False" %}
+    <div class="alert alert-info" role="alert">
+        {{ settings.info_text }}
+    </div>
+    {% endif %}
+
+    <div class="panel panel-default">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Ship</th>
+                <th>Value</th>
+                <th>Status</th>
+                <th>Reimbursement</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>idk</td>
+                <td><img src="https://image.eveonline.com/types/11387/icon?size=32"> Hyena</img></td>
+                <td>30.000.000 ISK</td>
+                <td>Accepted</td>
+                <td>20.000.000 ISK</td>
+                <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal1">
+                    View
+                  </button></td>
+                  
+              </tr>
+              
+            </tbody>
+          </table>
+    </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Review Your Request</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_javascript %}
+{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

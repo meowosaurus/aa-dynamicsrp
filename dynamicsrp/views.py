@@ -12,6 +12,8 @@ from django.core.cache import cache
 
 from .models import *
 
+# Utilities
+
 def gen_context():
     all_settings = Setting.objects.all()
 
@@ -29,8 +31,10 @@ def gen_context():
 
     return context
 
+# User views
+
 @login_required
-@permission_required("dynamicsrp.basic_access")
+@permission_required("dynamicsrp.payouts_access")
 def payouts(request: WSGIRequest) -> HttpResponse:
     """
     Index view
@@ -52,3 +56,37 @@ def payouts(request: WSGIRequest) -> HttpResponse:
                 'column_width': column_width})
 
     return render(request, "dynamicsrp/payouts.html", context)
+
+@login_required
+@permission_required("dynamicsrp.requests_access")
+def requested(request: WSGIRequest) -> HttpResponse:
+
+    context = gen_context()
+
+    return render(request, "dynamicsrp/requested.html", context)
+
+@login_required
+@permission_required("dynamicsrp.reports_access")
+def reports(request: WSGIRequest) -> HttpResponse:
+
+    context = gen_context()
+
+    return render(request, "dynamicsrp/reports.html", context)
+
+# Admin views
+
+@login_required
+@permission_required("dynamicsrp.basic_access")
+def open_requests(request: WSGIRequest) -> HttpResponse:
+
+    context = gen_context()
+
+    return render(request, "dynamicsrp/admin/open_requests.html", context)
+
+@login_required
+@permission_required("dynamicsrp.basic_access")
+def closed_requests(request: WSGIRequest) -> HttpResponse:
+
+    context = gen_context()
+
+    return render(request, "dynamicsrp/admin/closed_requests.html", context)

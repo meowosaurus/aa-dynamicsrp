@@ -17,7 +17,10 @@ class General(models.Model):
 
         managed = False
         default_permissions = ()
-        permissions = (("basic_access", "Can access this app"),)
+        permissions = (("basic_access", "Can access this app"),
+                        ("payouts_access", "Can access the payout page"),
+                        ("reports_access", "Can access the reports page"),
+                        ("requests_access", "Can submit requests and access their requests"))
 
 class Ship(models.Model):
     name = models.CharField(max_length=255, blank=True, unique=True)
