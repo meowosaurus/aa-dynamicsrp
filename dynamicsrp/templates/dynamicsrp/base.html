@@ -7,7 +7,8 @@
 {% block content %}
     <div class="allianceauth-dynamicsrp-plugin">
         <br />
-
+        
+        {% if settings.disable_request_functionality == "False" %}
         <nav class="navbar navbar-default">
             <div class="container-fluid">
               
@@ -24,14 +25,19 @@
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                   <li class="{% navactive request 'dynamicsrp:payouts' %}"><a href="{% url 'dynamicsrp:payouts' %}">Payouts</a></li>
+                  {% if settings.disable_request_functionality == "False" %}
                   <li class="{% navactive request 'dynamicsrp:requested' %}"><a href="{% url 'dynamicsrp:requested' %}">Requested</a></li>
+                  {% endif %}
+                  {% if settings.disable_request_functionality == "False" %}
                   <li data-toggle="modal" data-target="#myModal">
                     <a href="#">
                       Submit Request
                     </a>
                   </li>
+                  {% endif %}
                 </ul>
-
+                
+                {% if settings.disable_request_functionality == "False" %}
                 <ul class="nav navbar-nav navbar-right">
                   <li class="{% navactive request 'dynamicsrp:reports' %}"><a href="{% url 'dynamicsrp:reports' %}">Reports</a></li>
                   <li class="dropdown">
@@ -42,11 +48,13 @@
                     </ul>
                   </li>
                 </ul>
+                {% endif %}
               </div>
             </div>
           </nav>
+          {% endif %}
 
-
+          {% if settings.disable_request_functionality == "False" %}
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -75,6 +83,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
         {% block details %}{% endblock %}
     </div>

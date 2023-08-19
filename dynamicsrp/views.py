@@ -4,7 +4,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Subquery, OuterRef
 from django.db.models import F
 from django.db.models.functions import Coalesce
@@ -63,15 +63,31 @@ def requested(request: WSGIRequest) -> HttpResponse:
 
     context = gen_context()
 
-    return render(request, "dynamicsrp/requested.html", context)
+    settings = cache.get('settings')
+    if settings['disable_request_functionality'] == "False":
+
+        all_requests = SRPRequest.objects.all()
+
+        context.update({'requests': all_requests})
+
+        return render(request, "dynamicsrp/requested.html", context)
+
+    else:
+
+        return redirect('dynamicsrp:payouts')
+
 
 @login_required
 @permission_required("dynamicsrp.reports_access")
 def reports(request: WSGIRequest) -> HttpResponse:
 
-    context = gen_context()
+    settings = cache.get('settings')
+    if settings['disable_request_functionality'] == "False":
+        context = gen_context()
 
-    return render(request, "dynamicsrp/reports.html", context)
+        return render(request, "dynamicsrp/reports.html", context)
+    else:
+        return redirect('dynamicsrp:payouts')
 
 # Admin views
 
@@ -79,14 +95,22 @@ def reports(request: WSGIRequest) -> HttpResponse:
 @permission_required("dynamicsrp.basic_access")
 def open_requests(request: WSGIRequest) -> HttpResponse:
 
-    context = gen_context()
+    settings = cache.get('settings')
+    if settings['disable_request_functionality'] == "False":
+        context = gen_context()
 
-    return render(request, "dynamicsrp/admin/open_requests.html", context)
+        return render(request, "dynamicsrp/admin/open_requests.html", context)
+    else:
+        return redirect('dynamicsrp:payouts')
 
 @login_required
 @permission_required("dynamicsrp.basic_access")
 def closed_requests(request: WSGIRequest) -> HttpResponse:
 
-    context = gen_context()
+    settings = cache.get('settings')
+    if settings['disable_request_functionality'] == "False":
+        context = gen_context()
 
-    return render(request, "dynamicsrp/admin/closed_requests.html", context)
+        return render(request, "dynamicsrp/admin/closed_requests.html", context)
+    else:
+        return redirect('dynamicsrp:payouts')

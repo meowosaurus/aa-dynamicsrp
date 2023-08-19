@@ -51,6 +51,20 @@ class Setting(models.Model):
     def __str__(self):
         return self.name
 
+class SRPRequest(models.Model):
+    killmail_id = models.IntegerField(default=0, unique=True, primary_key=True)
+    killmail_time = models.DateTimeField()
+    #requester = models.ForeignKey
+    ship_id = models.IntegerField(default=0, unique=False)
+    character_id = models.IntegerField(default=0, unique=False)
+    character_name = models.CharField(max_length=255, blank=False)
+    corporation_id = models.IntegerField(default=0, unique=False)
+    corporation_name = models.CharField(max_length=255, blank=False)
+    alliance_id = models.IntegerField(default=0, unique=False)
+    alliance_name = models.CharField(max_length=255, blank=False)
+    solar_system_id = models.IntegerField(default=0, unique=False)
+    broadcast = models.CharField(max_length=1023, blank=False)
+
 def recalculate_matrix():
     ship_rows = Ship.objects.all().order_by("name")
     columns = Reimbursement.objects.all().order_by("index")

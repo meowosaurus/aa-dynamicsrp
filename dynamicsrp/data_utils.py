@@ -56,6 +56,8 @@ def add_settings():
         Setting.objects.create(name="disable_info_text", value="False")
     if not Setting.objects.filter(name="info_text").exists():
         Setting.objects.create(name="info_text", value="If you're using a bad fit, we'll reduce the payout.")
+    if not Setting.objects.filter(name="disable_request_functionality").exists():
+        Setting.objects.create(name="disable_request_functionality", value="False")
 
 def add_ships():
     if not Ship.objects.filter(name='Absolution', ship_id=22448).exists():
