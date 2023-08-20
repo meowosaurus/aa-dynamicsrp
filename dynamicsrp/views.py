@@ -55,7 +55,7 @@ def payouts(request: WSGIRequest) -> HttpResponse:
                 'columns': columns,
                 'column_width': column_width})
 
-    return render(request, "dynamicsrp/payouts.html", context)
+    return render(request, "dynamicsrp/payouts2.html", context)
 
 @login_required
 @permission_required("dynamicsrp.requests_access")
